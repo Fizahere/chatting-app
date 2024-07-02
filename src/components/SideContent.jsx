@@ -5,19 +5,18 @@ import {
 Avatar,
 VStack,
 } from "@chakra-ui/react";
-import CustomInputFeild from "../components/Mists/InputFeild";
 import { APP_ICONS } from "../assets/constants/icons";
 import { Colors } from "../assets/constants/colors";
 import CustomChatCard from "../components/Mists/chatCard";
-import CustomIconButton from "./Mists/iconsButton";
+import {CustomInputFields } from '../components/Mists/InputFeild' 
 
 function SideContent() {
   return (
     <>
       <Box p={4}>
         <Flex pb={5}>
-          <CustomInputFeild />
-          <Avatar name='Fiza' bg={Colors.searchInput} ml={{sm:3}} h={10} w={10} src='https://bit.ly/dan-abramo' />
+        <CustomInputFields.CustomSearchInputFeild />
+        <Avatar name='Fiza' bg={Colors.searchInput} ml={{sm:3}} h={10} w={10} src='https://bit.ly/dan-abramo' />
         </Flex>
         <VStack pl={6} spacing={4}>
         <CustomChatCard avatarName={'Fiza'} avatarColor={'pink'} />

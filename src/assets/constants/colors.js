@@ -4,4 +4,5 @@ export const Colors = {
     grey:'#8d8d9d',
     white:'white',
     chatbg:'#eeeef8',
+    lightGrey:'#f3f3f3',
 }

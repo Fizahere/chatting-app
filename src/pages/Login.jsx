@@ -1,12 +1,103 @@
-import React from 'react'
-import { Heading } from '@chakra-ui/react'
+import React from "react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Heading,
+  Icon,
+  VStack,
+  Button,
+  Text,
+} from "@chakra-ui/react";
+import { Colors } from "../assets/constants/colors";
+import { APP_ICONS } from "../assets/constants/icons";
+import { CustomInputFields } from "../components/Mists/InputFeild";
 
 function Login() {
   return (
     <>
-      <Heading>Login</Heading>
+      <HStack
+        spacing={0}
+        position="relative"
+        zIndex={1}
+        height="90vh"
+        alignItems="stretch"
+      >
+        <Box
+          width={{
+            base: "100%",
+            md: "40%",
+          }}
+          h={600}
+          bg={Colors.lightGrey}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Box mt={"100"}>
+            <Box bg={Colors.searchInput} w={300} p={4}>
+              <Heading fontWeight={"bold"}>Login</Heading>
+            </Box>
+            <VStack spacing={5} w={300} py={8} px={4} bg={Colors.white}>
+              <CustomInputFields.CustomFormInputFeild
+                text={"Email**"}
+                icon={APP_ICONS.EMAIL}
+              />
+              <CustomInputFields.CustomFormInputFeild
+                text={"Password**"}
+                icon={APP_ICONS.PASSWORD}
+              />
+              <Box>
+                <Button
+                  bg={Colors.searchInput}
+                  w={270}
+                  p={3}
+                  borderRadius={8}
+                  fontWeight={"bold"}
+                >
+                  Login
+                </Button>
+                <Text textAlign={"center"}>or</Text>
+                <Button
+                  w={270}
+                  p={2}
+                  borderRadius={18}
+                  fontSize={"0.8rem"}
+                  bg={Colors.lightGrey}
+                  onClick={() => {}}
+                >
+                  <Flex justifyContent={"center"} textAlign={"center"}>
+                    <Icon
+                      fontSize={"1.2rem"}
+                      mr={"6px"}
+                      as={APP_ICONS.GOOGLE}
+                    />
+                    <Box mt={"2px"}>Continue With Google</Box>
+                  </Flex>
+                </Button>
+              </Box>
+            </VStack>
+          </Box>
+        </Box>
+        <Box
+          width={{
+            base: "0%",
+            md: "60%",
+          }}
+          h={600}
+          bg={Colors.searchInput}
+          display={{
+            base: "none",
+            md: "inline-flex",
+          }}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Icon as={APP_ICONS.LOGINLOGO} fontSize={100} />
+        </Box>
+      </HStack>
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;
