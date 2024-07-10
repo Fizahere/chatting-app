@@ -12,7 +12,7 @@ import {
 import { Colors } from "../../assets/constants/colors";
 
 function CustomChatCard(props) {
-  const {avatarName,avatarColor}=props
+  const {avatarName,avatarColor,}=props
   return (
     <>
       <Card 
@@ -22,6 +22,8 @@ function CustomChatCard(props) {
       _hover={{
         bg:Colors.chatbg,
       }}
+      p={3}
+      borderRadius={8}
       >
         <Avatar
           name={avatarName}
@@ -35,11 +37,11 @@ function CustomChatCard(props) {
           <CardBody px={2}>
             <Flex w={200} justifyContent={"space-between"}>
               <Heading fontSize={"12"} fontWeight={"bold"}>
-                Fiza
+                {avatarName}
               </Heading>
               <Text fontSize={"10"}>2h</Text>
             </Flex>
-            <Box w={200}>
+            <Box w={'inherit'}>
               <Text fontSize={"10"} isTruncated>
                 im fiza, Lorem ipsum dolor sit amet, ducimus consequatur dolor
                 numquam dolorum molestiae temporibus? Earum reprehenderit

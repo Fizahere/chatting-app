@@ -35,7 +35,7 @@ function Login() {
           alignItems={"center"}
         >
           <Box mt={"100"}>
-            <Box bg={Colors.searchInput} w={300} p={4}>
+            <Box bg={Colors.ThemePurple} w={300} p={4}>
               <Heading fontWeight={"bold"}>Login</Heading>
             </Box>
             <VStack spacing={5} w={300} py={8} px={4} bg={Colors.white}>
@@ -49,7 +49,7 @@ function Login() {
               />
               <Box>
                 <Button
-                  bg={Colors.searchInput}
+                  bg={Colors.ThemePurple}
                   w={270}
                   p={3}
                   borderRadius={8}
@@ -85,7 +85,7 @@ function Login() {
             md: "60%",
           }}
           h={600}
-          bg={Colors.searchInput}
+          bg={Colors.ThemePurple}
           display={{
             base: "none",
             md: "inline-flex",

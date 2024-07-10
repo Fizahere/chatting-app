@@ -2,57 +2,37 @@ import React from "react";
 import { VStack, IconButton, Box, Text } from "@chakra-ui/react";
 import { Colors } from "../assets/constants/colors";
 import { APP_ICONS } from "../assets/constants/icons";
+import CustomIconButton from "./Mists/iconsButton";
 
-function SideBarMenu(props) {
-  const { icon } = props;
-
+function SideBarMenu() {
   return (
     <>
-      <VStack p={3}>
-        <Box textAlign={"center"}>
-          <IconButton
-            icon={<APP_ICONS.CHAT fontSize={25} color={Colors.grey} />}
-          />
-          <Text color={Colors.grey} m={1} fontSize={10}>
-            All Chats
-          </Text>
-        </Box>
-
-        <Box textAlign={"center"}>
-          <IconButton
-            icon={<APP_ICONS.WORK fontSize={25} color={Colors.grey} />}
-          />
-          <Text color={Colors.grey} m={1} fontSize={10}>
-            Work
-          </Text>
-        </Box>
-
-        <Box textAlign={"center"}>
-          <IconButton
-            icon={<APP_ICONS.FOLDER fontSize={25} color={Colors.grey} />}
-          />
-          <Text color={Colors.grey} m={1} fontSize={10}>
-            Friends
-          </Text>
-        </Box>
-
-        <Box textAlign={"center"}>
-          <IconButton
-            icon={<APP_ICONS.USER fontSize={25} color={Colors.grey} />}
-          />
-          <Text color={Colors.grey} m={1} fontSize={10}>
-            Profile
-          </Text>
-        </Box>
-
-        <Box textAlign={"center"}>
-          <IconButton
-            icon={<APP_ICONS.LOGOUT fontSize={25} color={Colors.grey} />}
-          />
-          <Text color={Colors.grey} m={1} fontSize={10}>
-            Logout
-          </Text>
-        </Box>
+      <VStack spacing={0} mt={10} mr={4}>
+        <CustomIconButton
+          icon={APP_ICONS.CHAT}
+          _color={Colors.grey}
+          text={"All Chat"}
+        />
+        <CustomIconButton
+          icon={APP_ICONS.WORK}
+          _color={Colors.grey}
+          text={"Work"}
+        />
+        <CustomIconButton
+          icon={APP_ICONS.FOLDER}
+          _color={Colors.grey}
+          text={"Friends"}
+        />
+        <CustomIconButton
+          icon={APP_ICONS.USER}
+          _color={Colors.grey}
+          text={"Profile"}
+        />
+        <CustomIconButton
+          icon={APP_ICONS.LOGOUT}
+          _color={Colors.grey}
+          text={"Logout"}
+        />
       </VStack>
     </>
   );

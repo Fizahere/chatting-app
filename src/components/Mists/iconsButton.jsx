@@ -1,21 +1,30 @@
 import React from "react";
-import { IconButton, } from "@chakra-ui/react";
+import { Box, Icon, Button } from "@chakra-ui/react";
 import { Colors } from "../../assets/constants/colors";
 import { APP_ICONS } from "../../assets/constants/icons";
 
 function CustomIconButton(props) {
-  const { icon, color } = props;
+  const { icon, _color, text } = props;
   return (
-    <IconButton
-    bg={Colors.searchInput}
-    borderRadius={50}
-    p={3}
-    border={'2px solid grey'}
-    icon={<APP_ICONS.USER
-      fontSize={17}
-      color={Colors.grey}
-    />} 
-    />
+    <Box textAlign={"center"}>
+      <Button
+        _hover={{
+          bg: Colors.iconhover,
+          color: Colors.white,
+        }}
+        borderRadius={8}
+        w={20}
+        py={4}
+        color={_color}
+        m={1}
+        fontSize={10}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <Icon as={icon} fontSize={25} />
+        {text}
+      </Button>
+    </Box>
   );
 }
 

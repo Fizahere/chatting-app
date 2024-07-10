@@ -8,7 +8,7 @@ const theme = extendBaseTheme({
 });
 
 const App = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
 
   return (
     <ChakraProvider theme={theme}>{user ? <Chat /> : <Login />}</ChakraProvider>

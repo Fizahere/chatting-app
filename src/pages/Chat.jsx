@@ -4,25 +4,28 @@ import SideContent from "../components/SideContent";
 import ChatContainer from "../components/ChatContainer";
 import { Colors } from "../assets/constants/colors";
 import SideBarMenu from "../components/sideMenu";
-import { FaBars, FaComments } from "react-icons/fa";
 import { APP_ICONS } from "../assets/constants/icons";
 
 function Chat() {
   const [showSideContent, setShowSideContent] = useState(true);
+  const [showChatContainer, setShowChatContainer] = useState(false);
 
   return (
     <>
-      <HStack p={{
-      base:'0',
-      md:'4'
-    }}
-    bg={"black"} position="relative" zIndex={1} height="100vh" alignItems="stretch">
+      <Box 
+        p={{ base: '0', md: '4' }}
+        bg="black" 
+        position="relative" 
+        zIndex={1} 
+        height="100vh" 
+        display="flex" 
+        flexDirection="column"
+      >
         <HStack
           display={{ base: "flex", md: "none" }}
-          // spacing={3}
           p={4}
           position="fixed"
-          justifyContent={'space-between'}
+          justifyContent="space-between"
           bottom={0}
           width="100%"
           bg="black"
@@ -32,66 +35,74 @@ function Chat() {
           <IconButton
             icon={<Icon as={APP_ICONS.CHAT} color={Colors.grey} />}
             aria-label="Side Content"
-            onClick={() => setShowSideContent(true)}
+            onClick={() => {
+              setShowSideContent(true);
+              setShowChatContainer(false);
+            }}
           />
           <IconButton
             icon={<Icon as={APP_ICONS.WORK} color={Colors.grey} />}
             aria-label="Chat Container"
-            onClick={() => setShowSideContent(false)}
+            onClick={() => {
+              setShowSideContent(false);
+              setShowChatContainer(true);
+            }}
           />
-             <IconButton
+          <IconButton
             icon={<Icon as={APP_ICONS.FOLDER} color={Colors.grey} />}
-            aria-label="Chat Container"
-            onClick={() => setShowSideContent(false)}
+            aria-label="Hide All"
+            onClick={() => {
+              setShowSideContent(false);
+              setShowChatContainer(false);
+            }}
           />
-             <IconButton
+          <IconButton
             icon={<Icon as={APP_ICONS.USER} color={Colors.grey} />}
-            aria-label="Chat Container"
-            onClick={() => setShowSideContent(false)}
+            aria-label="Hide All"
+            onClick={() => {
+              setShowSideContent(false);
+              setShowChatContainer(false);
+            }}
           />
         </HStack>
-        <HStack spacing="0" alignItems="stretch">
+        <Box
+          display="flex"
+          flex="1"
+        >
           <Box
             height="100%"
-            w={{ base: "0%", sm: "0%", md: "7%", lg: "7%" }}
+            w={{ base: '0', md: '80px' }}
             display={{ base: "none", md: "block" }}
           >
             <SideBarMenu />
           </Box>
           <Box
-            w={{ base: "100%", sm: "50%", md: "35%", lg: "25%" }}
-            height="100%"
-            bg={Colors.body}
-            borderTopLeftRadius={{
-               base:'0',
-              md:'30'
+            flex="1"
+            bg={Colors.white}
+            display="flex"
+            flexDirection={{ base: 'column', sm: 'row' }}
+            borderRadius={{
+              base:'none',md:'10'
             }}
-            display={{
-              base: showSideContent ? "block" : "none",
-              sm: "block",
-              md: "block",
-            }}
+            overflow="hidden"
           >
-            <SideContent />
+            <Box 
+              display={{ base: showSideContent ? 'block' : 'none', sm: 'block' }} 
+              flex={{ base: '1', sm: '0 0 300px' }} 
+              minWidth={{ base: '100%', sm: '300px' }}
+            >
+              <SideContent />
+            </Box>
+            <Box 
+              display={{ base: showChatContainer ? 'block' : 'none', sm: 'block' }} 
+              flex="1"
+              minWidth={{ base: '100%', sm: '0' }}
+            >
+              <ChatContainer />
+            </Box>
           </Box>
-          <Box
-            w={{ base: "100%", sm: "50%", md: "58%", lg: "68%" }}
-            height="100%"
-            bg={Colors.body}
-            borderTopRightRadius={{
-              base:'0',
-              md:'30'
-            }}
-            display={{
-              base: showSideContent ? "none" : "block",
-              sm: "block",
-              md: "block",
-            }}
-          >
-            <ChatContainer />
-          </Box>
-        </HStack>
-      </HStack>
+        </Box>
+      </Box>
     </>
   );
 }

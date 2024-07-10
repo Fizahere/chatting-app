@@ -9,6 +9,11 @@ import { RiChatHeartFill } from "react-icons/ri";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaVideo } from "react-icons/fa";
+import { BsChatSquare } from "react-icons/bs";
+import { GrGallery } from "react-icons/gr";
+import { FiSend } from "react-icons/fi";
 
 
 export const APP_ICONS = {
@@ -22,5 +27,10 @@ export const APP_ICONS = {
     EMAIL: MdOutlineEmail,
     PASSWORD: RiLockPasswordLine,
     GOOGLE: FcGoogle,
+    PHONE:FaPhoneAlt,
+    VIDEO:FaVideo,
+    CHATINPUT:BsChatSquare,
+    GALLERY:GrGallery,
+    SEND:FiSend,
     LOGOUT: TbLogout2,
 }
