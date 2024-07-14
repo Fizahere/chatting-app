@@ -4,7 +4,7 @@ import { Colors } from "../../assets/constants/colors";
 import { APP_ICONS } from "../../assets/constants/icons";
 
 function CustomIconButton(props) {
-  const { icon, _color, text } = props;
+  const { icon, _color, text, onClickHanlder } = props;
   return (
     <Box textAlign={"center"}>
       <Button
@@ -20,6 +20,7 @@ function CustomIconButton(props) {
         fontSize={10}
         display={"flex"}
         flexDirection={"column"}
+        onClick={onClickHanlder ? onClickHanlder : null}
       >
         <Icon as={icon} fontSize={25} />
         {text}

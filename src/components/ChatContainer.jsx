@@ -22,7 +22,7 @@ const TruncatedText = ({ children, maxLines = 2 }) => {
 
 function ChatContainer() {
   return (
-    <Box w="100%" p="4">
+    <Box w="100%" p="4" color={Colors.font} >
       <Box display="flex" justifyContent="space-between" borderBottom="1px solid grey">
         <Heading fontSize="25" fontWeight="bold">
           Chat

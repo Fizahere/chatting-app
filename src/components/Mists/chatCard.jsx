@@ -24,6 +24,7 @@ function CustomChatCard(props) {
       }}
       p={3}
       borderRadius={8}
+      color={Colors.font} 
       >
         <Avatar
           name={avatarName}

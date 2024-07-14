@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -14,14 +14,16 @@ import { APP_ICONS } from "../assets/constants/icons";
 import { CustomInputFields } from "../components/Mists/InputFeild";
 
 function Login() {
+  const [isShowPassword, setShowPassword] = useState(false)
   return (
     <>
       <HStack
         spacing={0}
         position="relative"
         zIndex={1}
-        height="90vh"
+        height="100vh"
         alignItems="stretch"
+        color={Colors.font}
       >
         <Box
           width={{
@@ -34,7 +36,7 @@ function Login() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Box mt={"100"}>
+          <Box >
             <Box bg={Colors.ThemePurple} w={300} p={4}>
               <Heading fontWeight={"bold"}>Login</Heading>
             </Box>
@@ -45,7 +47,9 @@ function Login() {
               />
               <CustomInputFields.CustomFormInputFeild
                 text={"Password**"}
-                icon={APP_ICONS.PASSWORD}
+                icon={isShowPassword ? APP_ICONS.CLOSEDEYE : APP_ICONS.OPENEYE}
+                type={isShowPassword ? 'password' : 'text'}
+                onClickHandler={() => isShowPassword ? setShowPassword(false) : setShowPassword(true)}
               />
               <Box>
                 <Button
@@ -64,7 +68,7 @@ function Login() {
                   borderRadius={18}
                   fontSize={"0.8rem"}
                   bg={Colors.lightGrey}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   <Flex justifyContent={"center"} textAlign={"center"}>
                     <Icon

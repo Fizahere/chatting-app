@@ -14,6 +14,8 @@ import { FaVideo } from "react-icons/fa";
 import { BsChatSquare } from "react-icons/bs";
 import { GrGallery } from "react-icons/gr";
 import { FiSend } from "react-icons/fi";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeOffSharp } from "react-icons/io5";
 
 
 export const APP_ICONS = {
@@ -29,6 +31,8 @@ export const APP_ICONS = {
     GOOGLE: FcGoogle,
     PHONE:FaPhoneAlt,
     VIDEO:FaVideo,
+    OPENEYE:IoEyeSharp,
+    CLOSEDEYE:IoEyeOffSharp,
     CHATINPUT:BsChatSquare,
     GALLERY:GrGallery,
     SEND:FiSend,

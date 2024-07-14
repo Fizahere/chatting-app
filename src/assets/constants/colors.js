@@ -7,4 +7,5 @@ export const Colors = {
     lightGrey:'#f3f3f3',
     iconhover:'#464646',
     sentChat:'#7778ee',
+    font:'black',
 }

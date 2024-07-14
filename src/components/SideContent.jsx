@@ -20,6 +20,7 @@ function SideContent() {
         />
         <Avatar 
           name='Fiza' 
+          color={Colors.font}
           bg={Colors.ThemePurple} 
           ml={3} 
           h={10} 
