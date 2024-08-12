@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { HStack, Box, IconButton, Icon } from "@chakra-ui/react";
 import SideContent from "../components/SideContent";
 import ChatContainer from "../components/ChatContainer";
 import { Colors } from "../assets/constants/colors";
 import SideBarMenu from "../components/sideMenu";
 import { APP_ICONS } from "../assets/constants/icons";
-import Login from './Login'
+import Login from "./Login";
 
 function Chat() {
   const [showSideContent, setShowSideContent] = useState(true);
   const [showChatContainer, setShowChatContainer] = useState(false);
   const [showLogin, setLogin] = useState(false);
-
+ 
   return (
     <>
-      <Box
-        p={{ base: '0', md: '4' }}
+       <Box
+        p={{ base: "0", md: "4" }}
         bg="black"
         position="relative"
         zIndex={1}
@@ -50,7 +50,6 @@ function Chat() {
               setShowSideContent(false);
               setShowChatContainer(true);
               setLogin(false);
-
             }}
           />
           <IconButton
@@ -72,13 +71,10 @@ function Chat() {
             }}
           />
         </HStack>
-        <Box
-          display="flex"
-          flex="1"
-        >
+        <Box display="flex" flex="1">
           <Box
             height="100%"
-            w={{ base: '0', md: '80px' }}
+            w={{ base: "0", md: "80px" }}
             display={{ base: "none", md: "block" }}
           >
             <SideBarMenu />
@@ -87,36 +83,43 @@ function Chat() {
             flex="1"
             bg={Colors.white}
             display="flex"
-            flexDirection={{ base: 'column', sm: 'row' }}
+            flexDirection={{ base: "column", sm: "row" }}
             borderRadius={{
-              base: 'none', md: '10'
+              base: "none",
+              md: "10",
             }}
             overflow="hidden"
           >
             <Box
-              display={{ base: showSideContent ? 'block' : 'none', sm: 'block' }}
-              flex={{ base: '1', sm: '0 0 300px' }}
-              minWidth={{ base: '100%', sm: '300px' }}
+              display={{
+                base: showSideContent ? "block" : "none",
+                sm: "block",
+              }}
+              flex={{ base: "1", sm: "0 0 300px" }}
+              minWidth={{ base: "100%", sm: "300px" }}
             >
               <SideContent />
             </Box>
             <Box
-              display={{ base: showChatContainer ? 'block' : 'none', sm: 'block' }}
+              display={{
+                base: showChatContainer ? "block" : "none",
+                sm: "block",
+              }}
               flex="1"
-              minWidth={{ base: '100%', sm: '0' }}
+              minWidth={{ base: "100%", sm: "0" }}
             >
-              <ChatContainer />
-            </Box>
+              <ChatContainer/>
+               </Box> 
             <Box
-              display={{ base: setLogin ? 'block' : 'none',sm:'none'  }}
+              display={{ base: setLogin ? "block" : "none", sm: "none" }}
               flex="1"
-              minWidth={{ base: '100%', sm: '0' }}
+              minWidth={{ base: "100%", sm: "0" }}
             >
               <Login />
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Box> 
     </>
   );
 }

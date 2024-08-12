@@ -8,13 +8,18 @@ import {
   VStack,
   Button,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import { Colors } from "../assets/constants/colors";
 import { APP_ICONS } from "../assets/constants/icons";
 import { CustomInputFields } from "../components/Mists/InputFeild";
+import { useGoogleSigin } from "../services/auth.service";
 
 function Login() {
-  const [isShowPassword, setShowPassword] = useState(false)
+  const [isShowPassword, setShowPassword] = useState(false);
+
+  const {signInWithGoogle, error, loading} = useGoogleSigin();
+
   return (
     <>
       <HStack
@@ -36,7 +41,7 @@ function Login() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Box >
+          <Box>
             <Box bg={Colors.ThemePurple} w={300} p={4}>
               <Heading fontWeight={"bold"}>Login</Heading>
             </Box>
@@ -48,8 +53,12 @@ function Login() {
               <CustomInputFields.CustomFormInputFeild
                 text={"Password**"}
                 icon={isShowPassword ? APP_ICONS.CLOSEDEYE : APP_ICONS.OPENEYE}
-                type={isShowPassword ? 'password' : 'text'}
-                onClickHandler={() => isShowPassword ? setShowPassword(false) : setShowPassword(true)}
+                type={isShowPassword ? "password" : "text"}
+                onClickHandler={() =>
+                  isShowPassword
+                    ? setShowPassword(false)
+                    : setShowPassword(true)
+                }
               />
               <Box>
                 <Button
@@ -68,16 +77,20 @@ function Login() {
                   borderRadius={18}
                   fontSize={"0.8rem"}
                   bg={Colors.lightGrey}
-                  onClick={() => { }}
+                  onClick={signInWithGoogle}
                 >
-                  <Flex justifyContent={"center"} textAlign={"center"}>
-                    <Icon
-                      fontSize={"1.2rem"}
-                      mr={"6px"}
-                      as={APP_ICONS.GOOGLE}
-                    />
-                    <Box mt={"2px"}>Continue With Google</Box>
-                  </Flex>
+                  {loading ? (
+                    <Spinner h={'20px'} w={'20px'} />
+                  ) : (
+                    <Flex justifyContent={"center"} textAlign={"center"}>
+                      <Icon
+                        fontSize={"1.2rem"}
+                        mr={"6px"}
+                        as={APP_ICONS.GOOGLE}
+                      />
+                      <Box mt={"2px"}>Continue With Google</Box>
+                    </Flex>
+                  )}
                 </Button>
               </Box>
             </VStack>

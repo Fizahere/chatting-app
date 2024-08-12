@@ -10,7 +10,14 @@ import { APP_ICONS } from "../../assets/constants/icons";
 import { Colors } from "../../assets/constants/colors";
 
 function CustomThemePurpleFeild(props) {
-  const { text, icon, width, rightIcon } = props
+  const { 
+    text, 
+    icon,
+     width, 
+    rightIcon,
+    f_value,
+    onChangeState,
+   } = props
   const widthStyle = typeof width === 'object' ? width : { base: width };
 
   return (
@@ -21,6 +28,8 @@ function CustomThemePurpleFeild(props) {
       <Input
         borderRadius={10}
         p={2}
+        value={f_value}
+        onChange={onChangeState}
         width={widthStyle}
         bg={Colors.ThemePurple}
         placeholder={text}
