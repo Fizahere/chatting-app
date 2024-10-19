@@ -19,7 +19,7 @@ function Chat() {
         bg="black"
         position="relative"
         zIndex={1}
-        height="100vh"
+        minHeight="100vh"
         display="flex"
         flexDirection="column"
       >
