@@ -5,25 +5,27 @@ import {
   InputLeftElement,
   InputRightElement,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 import { APP_ICONS } from "../../assets/constants/icons";
 import { Colors } from "../../assets/constants/colors";
 
 function CustomThemePurpleFeild(props) {
-  const { 
-    text, 
+  const {
+    text,
     icon,
-     width, 
+    width,
     rightIcon,
     f_value,
     onChangeState,
-   } = props
+    isLoading,
+  } = props
   const widthStyle = typeof width === 'object' ? width : { base: width };
 
   return (
     <InputGroup display={"flex"} justifyContent={"space-between"}>
-      <InputLeftElement ml={3} mt={2.5}>
-        <Icon as={icon} color={Colors.grey} fontSize={20} />
+      <InputLeftElement ml={4} mt={5}>
+        <Icon as={icon} color={Colors.grey} fontSize={25} />
       </InputLeftElement>
       <Input
         borderRadius={10}
@@ -31,14 +33,21 @@ function CustomThemePurpleFeild(props) {
         value={f_value}
         onChange={onChangeState}
         width={widthStyle}
+        h={16}
         bg={Colors.ThemePurple}
         placeholder={text}
         _placeholder={{ color: Colors.grey, }}
-        pl={10}
+        pl={14}
       />
       {rightIcon ?
-        <InputRightElement mr={3} mt={2.5}>
-          <Icon as={rightIcon} color={Colors.grey} fontSize={20} />
+        <InputRightElement mr={3} mt={5}>
+          {
+            isLoading
+              ?
+              <Spinner h={6} w={6} color={Colors.grey} />
+              :
+              <Icon as={rightIcon} color={Colors.grey} fontSize={25} />
+          }
         </InputRightElement>
         :
         null

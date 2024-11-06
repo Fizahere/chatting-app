@@ -1,11 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Box, Heading, Text, HStack, VStack, Avatar, Icon, IconButton } from "@chakra-ui/react";
-import { collection, query, orderBy, limit, addDoc, serverTimestamp } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { auth,firestore } from "../config/firebaseConfig";
+import React, { useState, useRef } from "react";
+import {
+  Box,
+  Heading,
+  Text,
+  HStack,
+  VStack,
+  Avatar,
+  Icon,
+} from "@chakra-ui/react";
+import { auth } from "../config/firebaseConfig";
 import { CustomInputFields } from "./Mists/InputFeild";
-import { APP_ICONS } from "../assets/constants/icons"; 
+import { APP_ICONS } from "../assets/constants/icons";
 import { Colors } from "../assets/constants/colors";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const TruncatedText = ({ children, maxLines = 2 }) => {
   const [isTruncated, setIsTruncated] = useState(true);
@@ -20,28 +27,39 @@ const TruncatedText = ({ children, maxLines = 2 }) => {
 };
 
 function ChatContainer() {
-  const messagesRef = collection(firestore, "messages");
-  const messagesQuery = query(messagesRef, orderBy("createdAt"), limit(25));
-  const [messages] = useCollectionData(messagesQuery);
   const dummy = useRef();
+  const [inputValue, setInputValue] = useState('');
+  const [promptResponses, setPromptResponses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [formValue, setFormValue] = useState("");
+  const genAI = new GoogleGenerativeAI("AIzaSyCKhoblkz5pmVWRfIiMYIWdTbtb2VzSFms");
 
-  const sendMessage = async (e) => {
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const getResponseForGivenPrompt = async (e) => {
     e.preventDefault();
-    const { uid, photoURL } = auth.currentUser;
+    if (!inputValue) return;
+    setLoading(true);
 
     try {
-      await addDoc(messagesRef, {
-        text: formValue,
-        createdAt: serverTimestamp(),
-        uid,
-        photoURL,
-      });
-      setFormValue("");
-      dummy.current.scrollIntoView({ behavior: "smooth" });
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent(inputValue);
+      let response = await result.response.text();
+      response = response.replace(/(?:\r\n|\r|\n)/g, '\n');
+      setPromptResponses([
+        ...promptResponses,
+        { question: inputValue, answer: response, isUser: true },
+        { question: inputValue, answer: response, isUser: false }
+      ]);
+
+      setInputValue('');
     } catch (error) {
-      console.error("Error sending message: ", error);
+      setError("Something went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,31 +75,35 @@ function ChatContainer() {
 
       <Box flex="1" overflowY="auto" pr={2}>
         <VStack spacing={4} align="stretch" pt={6}>
-          {messages && messages.map((msg, index) => (
+          {promptResponses.map((item, index) => (
             <HStack
               key={index}
-              alignSelf={msg.uid === auth.currentUser.uid ? "flex-end" : "flex-start"}
+              alignSelf={item.isUser ? "flex-end" : "flex-start"}
               maxWidth="100%"
               w="auto"
               flexWrap="wrap"
               spacing={2}
-              justifyContent={msg.uid === auth.currentUser.uid ? "flex-end" : "flex-start"}
+              justifyContent={item.isUser ? "flex-end" : "flex-start"}
             >
-              {msg.uid !== auth.currentUser.uid && (
-                <Avatar name="User" bg="#b1b2e4" h={10} w={10} src={msg.photoURL} mr={2} />
+              {!item.isUser && (
+                <Avatar name="AI" bg="#b1b2e4" h={10} w={10} mr={2} />
               )}
               <Box
                 maxW="80%"
-                bg={msg.uid === auth.currentUser.uid ? Colors.sentChat : Colors.chatbg}
-                color={msg.uid === auth.currentUser.uid ? Colors.white : Colors.font}
+                bg={item.isUser ? Colors.sentChat : Colors.chatbg}
+                color={item.isUser ? Colors.white : Colors.font}
                 borderRadius="md"
                 p={3}
-                textAlign={msg.uid === auth.currentUser.uid ? "right" : "left"}
+                textAlign="left"
               >
-                {msg.text.length >= 600 ? <TruncatedText>{msg.text}</TruncatedText> : <Text>{msg.text}</Text>}
+                {item.isUser ? (
+                  <Text>{item.question}</Text>
+                ) : (
+                  <TruncatedText whiteSpace="pre-line">{item.answer}</TruncatedText>
+                )}
               </Box>
-              {msg.uid === auth.currentUser.uid && (
-                <Avatar name="You" bg="pink" h={10} w={10} src={msg.photoURL} ml={2} />
+              {item.isUser && (
+                <Avatar name="You" bg="pink" h={10} w={10} src={auth.currentUser.photoURL} ml={2} />
               )}
             </HStack>
           ))}
@@ -89,28 +111,21 @@ function ChatContainer() {
         </VStack>
       </Box>
 
-      <Box mt={4}>
-        <form onSubmit={sendMessage}>
-          <Box display={"flex"}>
+      <Box my={4}>
+        <form onSubmit={getResponseForGivenPrompt}>
+          <Box display="flex">
             <CustomInputFields.CustomThemePurpleFeild
               icon={APP_ICONS.CHATINPUT}
               rightIcon={APP_ICONS.SEND}
-              rightIconButton={APP_ICONS.SEND}
-              text={"Message.."}
-              f_value={formValue}
-              onChangeState={(e) => setFormValue(e.target.value)}
-              width={{ base: "inherit", sm: "inherit", md: "inherit" }}
+              isLoading={loading}
+              text="Message.."
+              f_value={inputValue}
+              onChangeState={handleInputChange}
+              width="100%"
             />
-            {/* <IconButton
-              type="submit"
-              icon={<APP_ICONS.SEND />}
-              color={Colors.grey}
-              fontSize={24}
-              ml={2}
-              mt={2}
-            /> */}
           </Box>
         </form>
+        {error && <Text color={'red'}>{error}</Text>}
       </Box>
     </Box>
   );

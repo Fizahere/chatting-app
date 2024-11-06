@@ -35,7 +35,7 @@ function Login() {
             base: "100%",
             md: "40%",
           }}
-          h={600}
+          // h={600}
           bg={Colors.lightGrey}
           display={"flex"}
           justifyContent={"center"}
@@ -101,7 +101,7 @@ function Login() {
             base: "0%",
             md: "60%",
           }}
-          h={600}
+          // h={600}
           bg={Colors.ThemePurple}
           display={{
             base: "none",
